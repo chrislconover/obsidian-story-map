@@ -9,11 +9,12 @@ import { autoSizeDescription } from "./auto-size";
 import { ActivityEditorModal, TaskEditorModal, taskT } from "./task-editor";
 import { renderStoryAttachments } from "./story-attachments";
 import { renameTaskFiles } from "./task-content";
-import { moveTask } from "./reorder";
+import { moveActivity, moveTask } from "./reorder";
 import { isTaskColor, taskColors, colorBackground, colorInk, normalizeHex } from "./task-colors";
 
 const STORY_DRAG = "text/story-id";
 const TASK_DRAG = "text/task-id";
+const ACTIVITY_DRAG = "text/activity-id";
 /** Drag data is unreadable until drop, but its types are visible, so drop targets can ignore other kinds of drag. */
 function dragging(event: DragEvent, type: string): boolean { return event.dataTransfer?.types.includes(type) ?? false; }
 
@@ -614,8 +615,11 @@ class StoryMapView extends FileView {
       const name = box.createEl("button", { text: activity.title, cls: "story-map-activity-name", attr: { "aria-label": `${taskT("活动详情")}: ${activity.title}` } });
       name.onclick = event => { event.stopPropagation(); new ActivityEditorModal(this.plugin, activity).open(); };
       box.oncontextmenu = e => this.activityMenu(e, activity);
+      box.draggable = true; box.ondragstart = e => e.dataTransfer?.setData(ACTIVITY_DRAG, activity.id);
+      this.dropTarget(box, ACTIVITY_DRAG, id => moveActivity(this.plugin.data, id, activity.id));
     });
     const addActivity = activityRow.createEl("button", { text: `+ ${t("活动 Activity")}`, cls: "story-map-add-activity" }); addActivity.onclick = () => this.addActivity();
+    this.dropTarget(addActivity, ACTIVITY_DRAG, id => moveActivity(this.plugin.data, id));
     const taskRow = canvas.createDiv("story-map-task-row");
     taskRow.createDiv({ text: t("任务 Task"), cls: "story-map-axis-label" });
     slots.forEach((task, index) => {
@@ -628,12 +632,12 @@ class StoryMapView extends FileView {
         if (!previousTask) box.addClass("is-activity-start");
         const add = box.createEl("button", { text: `+ ${t("任务 Task")}`, cls: "story-map-add-task-after", attr: { "aria-label": t("在{0}右侧添加 Task", previousTask?.title || activity?.title || ""), title: t("追加 Task") } });
         add.onclick = event => { event.stopPropagation(); if (activity) this.addTask(activity, previousTask); };
-        if (activity) this.taskDropTarget(box, activity.id);
+        if (activity) this.dropTarget(box, TASK_DRAG, id => moveTask(this.plugin.data, id, activity.id));
         return;
       }
       box.dataset.taskId = task.id;
       box.draggable = true; box.ondragstart = e => e.dataTransfer?.setData(TASK_DRAG, task.id);
-      this.taskDropTarget(box, task.activityId, task.id);
+      this.dropTarget(box, TASK_DRAG, id => moveTask(this.plugin.data, id, task.activityId, task.id));
       if (isTaskColor(task.color)) { box.addClass("story-map-task-colored"); box.style.setProperty("--task-accent", colorBackground(task.color)); }
       const taskName = box.createEl("button", { text: task.title, cls: "story-map-task-name", attr: { "aria-label": `${taskT("任务详情")}: ${task.title}` } });
       taskName.onclick = event => { event.stopPropagation(); new TaskEditorModal(this.plugin, task).open(); };
@@ -829,13 +833,14 @@ class StoryMapView extends FileView {
     }
     void this.plugin.commit();
   }
-  private taskDropTarget(box: HTMLElement, activityId: string, beforeId?: string): void {
-    box.ondragover = e => { if (!dragging(e, TASK_DRAG)) return; e.preventDefault(); box.addClass("is-insert-target"); };
+  /** Accept drags of `type` on `box`; `move` applies the drop and reports whether anything changed. */
+  private dropTarget(box: HTMLElement, type: string, move: (id: string) => boolean): void {
+    box.ondragover = e => { if (!dragging(e, type)) return; e.preventDefault(); box.addClass("is-insert-target"); };
     box.ondragleave = () => box.removeClass("is-insert-target");
     box.ondrop = e => {
       e.preventDefault(); box.removeClass("is-insert-target");
-      const taskId = e.dataTransfer?.getData(TASK_DRAG);
-      if (taskId && moveTask(this.plugin.data, taskId, activityId, beforeId)) void this.plugin.commit();
+      const id = e.dataTransfer?.getData(type);
+      if (id && move(id)) void this.plugin.commit();
     };
   }
   private storyMenu(event: MouseEvent, story: Story): void { event.preventDefault(); const menu = new Menu().setUseNativeMenu(false); menu.addItem(i => i.setTitle(t("编辑")).setIcon("pencil").onClick(() => new StoryEditorModal(this.plugin, story).open())); menu.addItem(i => i.setTitle(t("打开关联笔记")).setIcon("file-text").onClick(() => void this.plugin.openStoryNote(story))); menu.addSeparator(); menu.addItem(i => i.setTitle(t("删除")).setIcon("trash").onClick(() => { this.plugin.data.stories.remove(story); this.selectedId = null; void this.plugin.commit(); })); menu.showAtMouseEvent(event); }
