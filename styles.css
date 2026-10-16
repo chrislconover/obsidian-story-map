@@ -27,6 +27,8 @@
 .story-map-task.is-activity-start { margin-left:3px; border-left:2px solid color-mix(in srgb,var(--interactive-accent) 55%,var(--background-modifier-border)); border-radius:5px 0 0 5px; }
 .story-map-task.is-activity-end { margin-right:3px; border-right:2px solid color-mix(in srgb,var(--interactive-accent) 55%,var(--background-modifier-border)); border-radius:0 5px 5px 0; }
 .story-map-task .story-map-add-task-after { position:absolute; z-index:3; right:-29px; height:24px; padding:0 7px; border:1px solid var(--interactive-accent); border-radius:12px; box-shadow:0 1px 5px rgba(0,0,0,.16); background:var(--background-primary); color:var(--interactive-accent); font-size:9px; font-weight:650; line-height:22px; white-space:nowrap; }
+.story-map-task[draggable="true"] { cursor:grab; }
+.story-map-task.is-insert-target::before { content:""; position:absolute; z-index:4; top:4px; bottom:4px; left:-3px; width:3px; border-radius:2px; background:var(--interactive-accent); }
 .story-map-task .story-map-add-task-after:hover,.story-map-task .story-map-add-task-after:focus { background:var(--interactive-accent); color:var(--text-on-accent); }
 .story-map-release-row { display:grid; grid-template-columns:var(--sm-row-label) max-content; min-height:170px; border-top:1px dashed var(--background-modifier-border); }
 .story-map-release-label { position:sticky; left:0; z-index:3; display:flex; flex-direction:column; justify-content:center; padding:12px; background:var(--background-secondary); border-right:1px solid var(--background-modifier-border); }
