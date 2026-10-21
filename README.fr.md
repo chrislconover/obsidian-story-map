@@ -6,7 +6,11 @@
 
 Construisez un plan produit commun : représentez le parcours utilisateur, décomposez-le en activités et en tâches, puis répartissez les user stories entre les jalons de livraison. Vous travaillez visuellement ; les agents ayant accès aux fichiers du coffre peuvent lire et modifier les mêmes cartes avec vos notes de projet.
 
-**[Télécharger la version 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Signaler un problème](https://github.com/prohui/obsidian-story-map/issues) · [Licence MIT](LICENSE)
+**[Télécharger la version 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Signaler un problème](https://github.com/prohui/obsidian-story-map/issues) · [Licence MIT](LICENSE)
+
+## Renommer les titres directement
+
+Cliquez sur le titre d’une Activity, Task ou Story pour le modifier sur place. Entrée enregistre, Échap annule ; quitter le champ enregistre aussi. Le menu contextuel → **Renommer** reste disponible. Les titres vides ou inchangés sont ignorés et un échec de sauvegarde conserve le brouillon pour réessayer. Le bouton de document séparé ouvre les détails des Activities et Tasks ; cliquez hors du titre sur une carte Story pour ses détails. Pour réorganiser, faites glisser la zone de carte ou d’en-tête hors du titre. Le renommage peut être annulé ou rétabli sans modifier le nom des fichiers de notes liés.
 
 ## Réorganiser les Activities et les Tasks
 
@@ -41,7 +45,7 @@ Planifiez sur la carte et modifiez les détails dans un panneau latéral compact
 
 ![Story Map avec activités, tâches, couloirs de jalons et panneau de détails](docs/images/obsidian-fr.jpg)
 
-*Capture réelle d'Obsidian 1.13.7 avec Story Map 1.6.0. L'interface et les données d'exemple sont en français ; la barre latérale des fichiers est masquée.*
+*Capture réelle d'Obsidian 1.13.7 avec Story Map 1.7.0. L'interface et les données d'exemple sont en français ; la barre latérale des fichiers est masquée.*
 
 - **Détails compacts.** La description s'agrandit avec le texte. Statut, rôle, priorité, estimation, étiquettes et notes liées restent accessibles sans déplier d'autres propriétés.
 - **Couleurs des stories et des tâches.** Huit couleurs prédéfinies, sélecteur de couleur et valeur HEX. Une tâche peut aussi reprendre la couleur du thème.
@@ -60,7 +64,7 @@ Planifiez sur la carte et modifiez les détails dans un panneau latéral compact
 
 *Les captures des étapes proviennent d'un coffre de démonstration avec une interface en français.*
 
-Créez des activités pour les étapes du parcours, décomposez-les en tâches et placez les stories dans les couloirs des jalons. Cliquez sur une story pour ses détails, ou sur le titre d'une tâche ou d'une activité pour ouvrir son éditeur. Gérez les rôles et les jalons dans la barre d'outils. Un jalon contenant des stories ne peut pas être supprimé. Les tâches et activités vides se suppriment depuis leur menu contextuel.
+Créez des activités pour les étapes du parcours, décomposez-les en tâches et placez les stories dans les couloirs des jalons. Cliquez sur une story pour ses détails, ou sur le bouton de document à côté du titre pour ouvrir son éditeur. Gérez les rôles et les jalons dans la barre d'outils. Un jalon contenant des stories ne peut pas être supprimé. Les tâches et activités vides se suppriment depuis leur menu contextuel.
 
 ## Fonctionnalités
 
@@ -90,7 +94,7 @@ Pour mettre à jour, remplacez ces trois fichiers, puis désactivez et réactive
 
 **Stories :** cliquez sur une carte pour modifier ses détails. Le bouton **+** sous la description permet d'importer un fichier de l'ordinateur ou de choisir un fichier du coffre. Utilisez les couleurs prédéfinies ou le sélecteur de couleur personnalisée avec saisie HEX.
 
-**Tâches et activités :** cliquez sur le titre pour modifier la description avec du texte mis en forme et des images intégrées. Collez ou déposez des fichiers, ou ajoutez-les avec **+**. Enregistrez avec le bouton ou **Cmd/Ctrl + Entrée**. Les tâches proposent huit couleurs prédéfinies et une valeur HEX personnalisée.
+**Tâches et activités :** cliquez sur le bouton de document à côté du titre pour modifier la description avec du texte mis en forme et des images intégrées. Collez ou déposez des fichiers, ou ajoutez-les avec **+**. Enregistrez avec le bouton ou **Cmd/Ctrl + Entrée**. Les tâches proposent huit couleurs prédéfinies et une valeur HEX personnalisée.
 
 Les pièces jointes importées dans les tâches et activités sont enregistrées immédiatement, selon les paramètres d'emplacement d'Obsidian. Annuler l'édition ou retirer une référence ne supprime pas le fichier importé. Les fichiers des stories sont écrits lors de l'enregistrement. Sauvegardez les pièces jointes avec les cartes : les exports JSON et XMind contiennent des références, pas des copies des fichiers.
 

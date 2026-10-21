@@ -6,7 +6,11 @@ English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) ·
 
 Build a shared product plan: map the user journey, break it into activities and tasks, and organize user stories into release milestones. People work visually; agents with access to your vault can read and edit the underlying map files alongside your project notes.
 
-**[Download 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Report an issue](https://github.com/prohui/obsidian-story-map/issues) · [MIT License](LICENSE)
+**[Download 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Report an issue](https://github.com/prohui/obsidian-story-map/issues) · [MIT License](LICENSE)
+
+## Rename titles inline
+
+Click an Activity, Task, or Story title to edit it directly in place. Enter saves, Escape cancels, and leaving the input saves. Right-click → **Rename** is also available. Empty and unchanged titles are ignored; a failed save keeps the draft open for retry. Activity and Task details open with the separate document button beside the title; click outside the Story title on its card to open Story details. Drag the header or card area outside the title to reorder items. Renaming supports undo/redo and leaves linked note filenames unchanged.
 
 ## Reorder Activities and Tasks
 
@@ -64,7 +68,7 @@ Right-click a folder in Obsidian's file explorer and choose **New story map**. E
 
 *Captured in an English-language demo vault.*
 
-Name the map, add activities for journey stages, break each activity into tasks, and add stories within milestone lanes. Click a Story for its details; click a Task or Activity title to open its editor. Manage roles and milestones from the toolbar. Milestones containing stories cannot be deleted; empty tasks and activities can be deleted from their context menus.
+Name the map, add activities for journey stages, break each activity into tasks, and add stories within milestone lanes. Click outside a Story title for its details; use the document button beside a Task or Activity title to open its editor. Manage roles and milestones from the toolbar. Milestones containing stories cannot be deleted; empty tasks and activities can be deleted from their context menus.
 
 ## Features
 
@@ -94,7 +98,7 @@ To update, replace those three files, then disable and re-enable the plugin. Map
 
 **Stories:** click a card to edit its compact details. Use the **+** below the description to import a file from your computer or select an existing vault file. Use the small Story color swatches or expand **Custom color** for a picker and HEX input.
 
-**Tasks and Activities:** click the title to open the description editor. Use basic formatting and inline images to explain the work and its references. Paste or drag in images and files, or use **+** to add an attachment. Click **Save**, or press **Cmd/Ctrl + Enter**. Task colors are available in the Task editor; choose from eight presets or enter a custom HEX color.
+**Tasks and Activities:** click the document button beside the title to open the description editor. Use basic formatting and inline images to explain the work and its references. Paste or drag in images and files, or use **+** to add an attachment. Click **Save**, or press **Cmd/Ctrl + Enter**. Task colors are available in the Task editor; choose from eight presets or enter a custom HEX color.
 
 Imported Task and Activity attachments are saved immediately using Obsidian's attachment-location settings. Cancelling editing or removing a reference does not delete an imported file. Story imports are written when saved. Back up attachment files along with your maps: JSON and XMind exports contain references, not copies of the attached files.
 
@@ -148,3 +152,5 @@ If Story Map helps you plan your projects, you can [buy me a coffee](https://ko-
 ## License
 
 [MIT](LICENSE) © 2026 Dahui. Not affiliated with Obsidian, Miro, or XMind.
+
+三类卡片标题均支持自动换行，编辑框随内容增高或缩小。Enter 保存，Shift+Enter 手动换行，Esc 取消。

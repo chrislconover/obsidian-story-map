@@ -6,11 +6,15 @@
 
 以 User Story Mapping（用户故事地图）规划产品：梳理用户旅程，拆分活动和任务，再按发布里程碑组织用户故事。人通过可视化界面规划，获得 Vault 文件访问权限的 agent 则可以结合项目笔记，读取和编辑同一份地图文件。
 
-**[下载 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [反馈问题](https://github.com/prohui/obsidian-story-map/issues) · [MIT 许可证](LICENSE)
+**[下载 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [反馈问题](https://github.com/prohui/obsidian-story-map/issues) · [MIT 许可证](LICENSE)
+
+## 直接修改卡片标题
+
+单击 Activity、Task 或 Story 的标题文字即可原位编辑，无需寻找铅笔按钮。Enter 保存，Esc 取消，离开输入框自动保存；三类卡片也支持右键 → **修改名称**。空白或未变化的标题不会保存，保存失败时保留草稿供重试。Activity、Task 通过标题旁独立的文档按钮打开详情；Story 点击标题之外的卡片区域打开详情。拖动标题之外的卡片或表头区域可排序。改名支持撤销和重做，不会重命名关联笔记文件。
 
 ## 调整 Activity 和 Task 顺序
 
-将 Activity 标题拖到另一个 Activity 上，可插入其前方；拖到 **+ 活动 Activity** 可移至末尾，下属 Task 和 Story 会一起移动。将 Task 标题拖到另一个 Task 上，可插入其前方；拖到某个 Activity 的 **+ 任务 Task** 空间，可移至该 Activity 末尾。Task 支持跨 Activity 移动，关联 Story 会同步归属。蓝色插入线提示放置位置，每次有效移动均支持撤销和重做。
+将 Activity 标题外的表头区域拖到另一个 Activity 上，可插入其前方；拖到 **+ 活动 Activity** 可移至末尾，下属 Task 和 Story 会一起移动。将 Task 标题外的表头区域拖到另一个 Task 上，可插入其前方；拖到某个 Activity 的 **+ 任务 Task** 空间，可移至该 Activity 末尾。Task 支持跨 Activity 移动，关联 Story 会同步归属。蓝色插入线提示放置位置，每次有效移动均支持撤销和重做。
 
 感谢 [Chris (@chrislconover)](https://github.com/chrislconover) 在 [PR #4](https://github.com/prohui/obsidian-story-map/pull/4) 中贡献 Activity 和 Task 拖拽排序功能。
 
@@ -64,7 +68,7 @@
 
 *右键菜单为实际操作截图；创建窗口使用示例项目文件夹。*
 
-编辑地图名称，用 Activity 划分用户旅程阶段，为每个 Activity 添加 Task，再按里程碑添加 Story。点击 Story 打开详情，点击 Task 或 Activity 标题打开编辑器。顶部工具栏可以管理角色和里程碑。包含故事的里程碑不能删除；空 Task 和 Activity 可通过右键菜单删除。
+编辑地图名称，用 Activity 划分用户旅程阶段，为每个 Activity 添加 Task，再按里程碑添加 Story。点击 Story 标题外的区域打开详情，点击 Task 或 Activity 旁的文档按钮打开编辑器。顶部工具栏可以管理角色和里程碑。包含故事的里程碑不能删除；空 Task 和 Activity 可通过右键菜单删除。
 
 ## 功能
 
@@ -94,7 +98,7 @@
 
 **Story：** 点击卡片即可编辑紧凑详情。描述下方的 **+** 可以导入电脑文件或选择库内文件。“故事颜色”提供小色块，展开“自定义颜色”后可使用取色器或输入 HEX 色值。
 
-**Task / Activity：** 点击标题打开描述编辑器，用基础格式和正文图片说明任务及参考内容。可粘贴、拖入图片和文件，也可通过 **+** 添加附件。点击“保存”，或按 **Cmd/Ctrl + Enter** 保存。Task 编辑器提供任务颜色，支持八种预设与自定义 HEX 颜色。
+**Task / Activity：** 点击标题旁的文档按钮打开描述编辑器，用基础格式和正文图片说明任务及参考内容。可粘贴、拖入图片和文件，也可通过 **+** 添加附件。点击“保存”，或按 **Cmd/Ctrl + Enter** 保存。Task 编辑器提供任务颜色，支持八种预设与自定义 HEX 颜色。
 
 Task / Activity 导入的附件会按 Obsidian 的附件位置设置立即保存到库内，取消编辑或移除关联不会删除已导入文件。Story 导入的文件在保存时写入。请把附件与地图一起备份：JSON 和 XMind 导出保留引用，不打包附件原文件。
 
@@ -154,3 +158,5 @@ npm test
 <img src="docs/images/wechat-support.jpg" alt="何大辉的微信赞赏码" width="320" />
 
 海外用户也可以[通过 Ko-fi 支持开发](https://ko-fi.com/hexhe)。
+
+三类卡片标题均支持自动换行，编辑框随内容增高或缩小。Enter 保存，Shift+Enter 手动换行，Esc 取消。

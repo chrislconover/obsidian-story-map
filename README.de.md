@@ -6,7 +6,11 @@
 
 Erstelle einen gemeinsamen Produktplan: Bilde die Nutzerreise ab, unterteile sie in Aktivitäten und Aufgaben und ordne User Storys den Meilensteinen deiner Releases zu. Menschen arbeiten visuell; Agenten mit Dateizugriff auf den Vault können dieselben Maps zusammen mit den Projektnotizen lesen und bearbeiten.
 
-**[1.6.0 herunterladen](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Problem melden](https://github.com/prohui/obsidian-story-map/issues) · [MIT-Lizenz](LICENSE)
+**[1.7.0 herunterladen](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Problem melden](https://github.com/prohui/obsidian-story-map/issues) · [MIT-Lizenz](LICENSE)
+
+## Titel direkt umbenennen
+
+Klicke auf den Titel einer Activity, eines Tasks oder einer Story, um ihn direkt zu bearbeiten. Enter speichert, Esc bricht ab; beim Verlassen des Eingabefelds wird gespeichert. Rechtsklick → **Umbenennen** bleibt verfügbar. Leere oder unveränderte Titel werden ignoriert; bei Speicherfehlern bleibt der Entwurf zum erneuten Versuch erhalten. Activity- und Task-Details öffnen sich über die separate Dokument-Schaltfläche neben dem Titel; Story-Details über den Kartenbereich außerhalb des Titels. Zum Sortieren ziehe den Kopf- oder Kartenbereich außerhalb des Titels. Rückgängig/Wiederholen wird unterstützt; verknüpfte Notizdateinamen bleiben unverändert.
 
 ## Activities und Tasks neu anordnen
 
@@ -41,7 +45,7 @@ Plane auf der Map und bearbeite Details in einem kompakten Seitenbereich.
 
 ![Story Map mit Aktivitäten, Aufgaben, Meilenstein-Bahnen und Story-Details](docs/images/obsidian-de.jpg)
 
-*Echter Screenshot aus Obsidian 1.13.7 mit Story Map 1.6.0. Oberfläche und Beispieldaten sind auf Deutsch; die Dateiseitenleiste ist ausgeblendet.*
+*Echter Screenshot aus Obsidian 1.13.7 mit Story Map 1.7.0. Oberfläche und Beispieldaten sind auf Deutsch; die Dateiseitenleiste ist ausgeblendet.*
 
 - **Kompakte Story-Details:** Das Beschreibungsfeld wächst mit dem Text. Status, Rolle, Priorität, Schätzung, Tags und verknüpfte Notizen sind ohne Aufklappen weiterer Eigenschaften zugänglich.
 - **Farben für Storys und Aufgaben:** Acht Vorgaben, Farbauswahl und HEX-Werte. Aufgaben können auch die Standardfarbe des Themes verwenden.
@@ -60,7 +64,7 @@ Plane auf der Map und bearbeite Details in einem kompakten Seitenbereich.
 
 *Die Anleitungsbilder stammen aus einem Demo-Vault mit deutscher Oberfläche.*
 
-Lege Aktivitäten für die Phasen der Nutzerreise an, unterteile sie in Aufgaben und füge Storys in den Meilenstein-Bahnen hinzu. Ein Klick auf eine Story öffnet ihre Details; ein Klick auf einen Aufgaben- oder Aktivitätstitel öffnet den Editor. Rollen und Meilensteine verwaltest du in der Werkzeugleiste. Meilensteine mit Storys lassen sich nicht löschen. Leere Aufgaben und Aktivitäten kannst du im Kontextmenü löschen.
+Lege Aktivitäten für die Phasen der Nutzerreise an, unterteile sie in Aufgaben und füge Storys in den Meilenstein-Bahnen hinzu. Ein Klick auf eine Story öffnet ihre Details; die Dokument-Schaltfläche neben einem Aufgaben- oder Aktivitätstitel öffnet den Editor. Rollen und Meilensteine verwaltest du in der Werkzeugleiste. Meilensteine mit Storys lassen sich nicht löschen. Leere Aufgaben und Aktivitäten kannst du im Kontextmenü löschen.
 
 ## Funktionen
 
@@ -90,7 +94,7 @@ Ersetze zum Aktualisieren diese drei Dateien und deaktiviere und aktiviere das P
 
 **Storys:** Klicke auf eine Karte, um ihre Details zu bearbeiten. Mit **+** unter der Beschreibung importierst du eine Datei vom Computer oder wählst eine vorhandene Vault-Datei. Nutze die Farbfelder oder die benutzerdefinierte Farbauswahl mit HEX-Eingabe.
 
-**Aufgaben und Aktivitäten:** Klicke auf den Titel und ergänze formatierten Text oder eingebettete Bilder. Füge Dateien durch Einfügen, Ziehen oder über **+** hinzu. Speichere mit der Schaltfläche oder **Cmd/Ctrl + Enter**. Für Aufgaben stehen acht Farbvorlagen und eigene HEX-Werte bereit.
+**Aufgaben und Aktivitäten:** Klicke auf die Dokument-Schaltfläche neben dem Titel und ergänze formatierten Text oder eingebettete Bilder. Füge Dateien durch Einfügen, Ziehen oder über **+** hinzu. Speichere mit der Schaltfläche oder **Cmd/Ctrl + Enter**. Für Aufgaben stehen acht Farbvorlagen und eigene HEX-Werte bereit.
 
 Importierte Anhänge von Aufgaben und Aktivitäten werden sofort gemäß den Obsidian-Einstellungen für Anhänge gespeichert. Abbrechen oder Entfernen einer Referenz löscht die importierte Datei nicht. Story-Anhänge werden beim Speichern geschrieben. Sichere Anhänge gemeinsam mit den Maps: JSON- und XMind-Exporte enthalten nur Referenzen, keine Kopien der Dateien.
 

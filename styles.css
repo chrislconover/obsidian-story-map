@@ -403,3 +403,20 @@ input[type="file"].story-map-hidden { display:none; }
 .story-map-color-swatch svg { width: 12px; height: 12px; }
 .story-map-custom-color { font-size: 11px; }
 .story-map-custom-color summary { margin: 2px 0; }
+
+/* Click text to rename; blank card/header space remains available for dragging. */
+.story-map-card-title { display:flex; align-items:center; justify-content:center; gap:6px; min-width:0; width:100%; }
+.story-map-card .story-map-card-title { justify-content:flex-start; }
+.story-map-card-title .story-map-rename-title { min-width:0; max-width:100%; flex:0 1 auto; cursor:text; }
+.story-map-card-title .story-map-details-button { display:grid; place-items:center; flex:0 0 28px; width:28px; height:28px; padding:5px; border:0; box-shadow:none; background:transparent; color:var(--text-muted); cursor:pointer; }
+.story-map-details-button svg { width:16px; height:16px; }
+.story-map-details-button:hover { color:var(--text-normal); background:var(--background-modifier-hover); }
+.story-map-card-title .story-map-rename-title:focus-visible,.story-map-details-button:focus-visible { outline:2px solid var(--interactive-accent); outline-offset:2px; }
+.story-map-card-title .story-map-inline-input { flex:1; min-width:0; height:auto; margin:0; padding:0 2px; font:inherit; line-height:inherit; text-align:inherit; color:inherit; background:transparent; border:0; border-radius:2px; box-shadow:0 0 0 1px var(--interactive-accent); }
+.story-map-card .story-map-inline-input { font-size:12px; font-weight:600; line-height:1.4; color:var(--story-ink); }
+@media (pointer:coarse) { .story-map-card-title .story-map-details-button { flex-basis:36px; width:36px; height:36px; } }
+
+/* Preserve manual breaks and wrap long titles at every level. */
+.story-map-card-title .story-map-rename-title,
+.story-map-card-title button.story-map-rename-title { white-space:pre-wrap; overflow-wrap:anywhere; height:auto; }
+.story-map-card-title textarea.story-map-inline-input { box-sizing:border-box; display:block; width:100%; height:var(--story-description-height,auto); min-height:1.5em; max-height:none; overflow:hidden; resize:none; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.5; }

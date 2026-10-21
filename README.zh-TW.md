@@ -6,11 +6,15 @@
 
 以 User Story Mapping（使用者故事地圖）規劃產品：梳理使用者旅程，拆分活動與任務，再按發布里程碑組織使用者故事。人透過視覺化介面規劃，取得 Vault 檔案存取權限的 agent 則可結合專案筆記，讀取與編輯同一份地圖檔案。
 
-**[下載 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [回報問題](https://github.com/prohui/obsidian-story-map/issues) · [MIT 授權條款](LICENSE)
+**[下載 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [回報問題](https://github.com/prohui/obsidian-story-map/issues) · [MIT 授權條款](LICENSE)
+
+## 直接修改卡片標題
+
+單擊 Activity、Task 或 Story 的標題文字即可原位編輯，不需尋找鉛筆按鈕。Enter 儲存，Esc 取消，離開輸入框自動儲存；三類卡片也支援右鍵 → **重新命名**。空白或未變更的標題不會儲存，儲存失敗時保留草稿供重試。Activity、Task 透過標題旁獨立的文件按鈕開啟詳細資料；Story 點擊標題以外的卡片區域開啟詳細資料。拖動標題以外的卡片或表頭區域可排序。支援復原和重做，不會重新命名關聯筆記檔案。
 
 ## 調整 Activity 和 Task 順序
 
-將 Activity 標題拖到另一個 Activity 上，可插入其前方；拖到 **+ Activity** 可移至末尾，所屬 Task 和 Story 會一起移動。將 Task 標題拖到另一個 Task 上，可插入其前方；拖到某個 Activity 的 **+ Task** 區域，可移至該 Activity 末尾。Task 支援跨 Activity 移動，相關 Story 會同步更新歸屬。藍色插入線提示放置位置，每次有效移動均支援復原和重做。
+將 Activity 標題以外的表頭區域拖到另一個 Activity 上，可插入其前方；拖到 **+ Activity** 可移至末尾，所屬 Task 和 Story 會一起移動。將 Task 標題以外的表頭區域拖到另一個 Task 上，可插入其前方；拖到某個 Activity 的 **+ Task** 區域，可移至該 Activity 末尾。Task 支援跨 Activity 移動，相關 Story 會同步更新歸屬。藍色插入線提示放置位置，每次有效移動均支援復原和重做。
 
 感謝 [Chris (@chrislconover)](https://github.com/chrislconover) 在 [PR #4](https://github.com/prohui/obsidian-story-map/pull/4) 中貢獻 Activity 和 Task 拖曳排序功能。
 
@@ -41,7 +45,7 @@
 
 ![Story Map 的活動、任務、里程碑泳道與故事詳細資料側欄](docs/images/obsidian-zh-TW.jpg)
 
-*Obsidian 1.13.7 與 Story Map 1.6.0 的實際執行截圖，介面與範例內容均為繁體中文；隱藏檔案側欄以凸顯地圖。*
+*Obsidian 1.13.7 與 Story Map 1.7.0 的實際執行截圖，介面與範例內容均為繁體中文；隱藏檔案側欄以凸顯地圖。*
 
 - **精簡的故事詳細資料。** 描述隨文字高度展開；狀態、角色、優先順序、估點、標籤與關聯筆記直接顯示，無須展開更多屬性。
 - **故事與任務顏色。** 八種預設色塊與自訂取色器、HEX 色碼；任務也可還原為佈景主題預設色。
@@ -60,7 +64,7 @@
 
 *操作截圖使用繁體中文介面與示範 Vault。*
 
-以活動劃分旅程階段，將活動拆成任務，再把故事放入里程碑泳道。點擊故事開啟詳細資料；點擊任務或活動標題開啟編輯器。從工具列管理角色與里程碑。包含故事的里程碑無法刪除；空的任務與活動可透過右鍵選單刪除。
+以活動劃分旅程階段，將活動拆成任務，再把故事放入里程碑泳道。點擊故事開啟詳細資料；點擊任務或活動標題旁的文件按鈕開啟編輯器。從工具列管理角色與里程碑。包含故事的里程碑無法刪除；空的任務與活動可透過右鍵選單刪除。
 
 ## 功能
 
@@ -90,7 +94,7 @@
 
 **故事：** 點擊卡片編輯詳細資料。描述下方的 **+** 可匯入電腦檔案或選擇 Vault 內檔案。使用故事色塊，或展開自訂顏色以使用取色器與 HEX 色碼。
 
-**任務與活動：** 點擊標題編輯描述，可貼上、拖入圖片與檔案，或用 **+** 加入附件。點擊儲存，或按 **Cmd/Ctrl + Enter**。任務編輯器提供八種預設色與自訂 HEX 色碼。
+**任務與活動：** 點擊標題旁的文件按鈕編輯描述，可貼上、拖入圖片與檔案，或用 **+** 加入附件。點擊儲存，或按 **Cmd/Ctrl + Enter**。任務編輯器提供八種預設色與自訂 HEX 色碼。
 
 任務與活動匯入的附件會依 Obsidian 附件位置設定立即寫入 Vault；取消編輯或移除引用不會刪除已匯入檔案。故事匯入的檔案在儲存時寫入。請將附件與地圖一起備份：JSON 與 XMind 匯出只保留引用，不包含附件原始檔案。
 

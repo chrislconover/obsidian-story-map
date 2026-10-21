@@ -6,7 +6,11 @@
 
 Crea un plan de producto compartido: representa el recorrido del usuario, divídelo en actividades y tareas, y organiza las historias de usuario por hitos de entrega. Las personas trabajan de forma visual; los agentes con acceso a los archivos de la bóveda pueden leer y editar los mismos mapas junto con las notas del proyecto.
 
-**[Descargar 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Informar de un problema](https://github.com/prohui/obsidian-story-map/issues) · [Licencia MIT](LICENSE)
+**[Descargar 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Informar de un problema](https://github.com/prohui/obsidian-story-map/issues) · [Licencia MIT](LICENSE)
+
+## Cambiar títulos directamente
+
+Haz clic en el título de una Activity, Task o Story para editarlo en su sitio. Enter guarda, Esc cancela y salir del campo también guarda. El menú contextual → **Renombrar** sigue disponible. Se ignoran los títulos vacíos o sin cambios; un error de guardado conserva el borrador para reintentar. El botón de documento separado abre los detalles de Activities y Tasks; haz clic fuera del título de una tarjeta Story para abrir sus detalles. Para reordenar, arrastra la zona de cabecera o tarjeta fuera del título. Se puede deshacer y rehacer sin cambiar el nombre de las notas vinculadas.
 
 ## Reordenar Activities y Tasks
 
@@ -41,7 +45,7 @@ Planifica en el mapa y edita los detalles en un panel lateral compacto.
 
 ![Story Map con actividades, tareas, carriles de hitos y detalles de una historia](docs/images/obsidian-es.jpg)
 
-*Captura real de Obsidian 1.13.7 con Story Map 1.6.0. La interfaz y los datos de ejemplo están en español; la barra lateral de archivos está oculta.*
+*Captura real de Obsidian 1.13.7 con Story Map 1.7.0. La interfaz y los datos de ejemplo están en español; la barra lateral de archivos está oculta.*
 
 - **Detalles compactos.** La descripción crece con el texto. Estado, rol, prioridad, estimación, etiquetas y notas vinculadas se editan sin desplegar más propiedades.
 - **Colores de historias y tareas.** Ocho colores predefinidos, selector de color y valores HEX. Las tareas también pueden recuperar el color predeterminado del tema.
@@ -60,7 +64,7 @@ Planifica en el mapa y edita los detalles en un panel lateral compacto.
 
 *Las imágenes de los pasos se tomaron en una bóveda de demostración con la interfaz en español.*
 
-Define actividades para las etapas del recorrido, divídelas en tareas y coloca las historias en los carriles de hitos. Haz clic en una historia para ver sus detalles o en el título de una tarea o actividad para abrir su editor. Gestiona roles e hitos desde la barra de herramientas. Los hitos con historias no se pueden eliminar. Las tareas y actividades vacías se pueden eliminar desde el menú contextual.
+Define actividades para las etapas del recorrido, divídelas en tareas y coloca las historias en los carriles de hitos. Haz clic en una historia para ver sus detalles o en el botón de documento junto al título de una tarea o actividad para abrir su editor. Gestiona roles e hitos desde la barra de herramientas. Los hitos con historias no se pueden eliminar. Las tareas y actividades vacías se pueden eliminar desde el menú contextual.
 
 ## Funciones
 
@@ -90,7 +94,7 @@ Para actualizar, sustituye esos tres archivos y desactiva y vuelve a activar el 
 
 **Historias:** haz clic en una tarjeta para editar sus detalles. Usa **+** debajo de la descripción para importar un archivo del ordenador o elegir uno de la bóveda. Puedes usar las muestras de color o el selector personalizado con entrada HEX.
 
-**Tareas y actividades:** pulsa el título para editar la descripción con formato e imágenes integradas. Pega o arrastra archivos, o añádelos con **+**. Guarda con el botón correspondiente o **Cmd/Ctrl + Enter**. Las tareas admiten ocho colores predefinidos y un valor HEX personalizado.
+**Tareas y actividades:** pulsa el botón de documento junto al título para editar la descripción con formato e imágenes integradas. Pega o arrastra archivos, o añádelos con **+**. Guarda con el botón correspondiente o **Cmd/Ctrl + Enter**. Las tareas admiten ocho colores predefinidos y un valor HEX personalizado.
 
 Los adjuntos importados en tareas y actividades se guardan inmediatamente según los ajustes de ubicación de Obsidian. Cancelar la edición o quitar una referencia no elimina el archivo importado. Los archivos de las historias se escriben al guardar. Incluye los adjuntos en tus copias de seguridad: las exportaciones JSON y XMind contienen referencias, no copias de los archivos.
 

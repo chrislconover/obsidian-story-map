@@ -49,7 +49,7 @@ function storyColorPicker(parent: HTMLElement, current: Story["color"], change: 
 
 const VIEW_TYPE = "story-map-view";
 const DATA_PATH = ".story-map.json";
-const PLUGIN_VERSION = "1.6.0";
+const PLUGIN_VERSION = "1.7.0";
 const STATUS_LABELS: Record<Story["status"], string> = { idea: "想法", planned: "已规划", doing: "进行中", done: "已完成" };
 const PRIORITY_LABELS: Record<Story["priority"], string> = { low: "低", medium: "中", high: "高" };
 
@@ -498,7 +498,14 @@ class StoryEditorModal extends SavingModal {
   }
 }
 
+type RenameKind = "activity" | "task" | "story";
+interface RenameDraft { kind: RenameKind; id: string; value: string; busy: boolean; plugin: StoryMapPlugin; caret?: number; }
+
 class StoryMapView extends FileView {
+  private renameDraft: RenameDraft | undefined;
+  private renameInput: HTMLTextAreaElement | undefined;
+  private disposeRenameSize: (() => void) | undefined;
+  private renameOriginalTitle: HTMLElement | undefined;
   private selectedId: string | null = null;
   private query = "";
   private roleFilter = "";
@@ -508,20 +515,24 @@ class StoryMapView extends FileView {
   constructor(leaf: WorkspaceLeaf, private plugin: StoryMapPlugin) { super(leaf); this.allowNoFile = true; }
   owns(plugin: StoryMapPlugin): boolean { return this.plugin === plugin; }
   async onLoadFile(file: TFile): Promise<void> {
+    this.cancelRename();
     if (!await this.plugin.commit(false)) throw new Error(t(this.plugin.saveStatus));
     this.plugin = await this.plugin.fileSession(file);
     this.resetMapState(); this.render();
   }
-  async onUnloadFile(): Promise<void> { await this.plugin.commit(false); }
+  async onUnloadFile(): Promise<void> { this.cancelRename(); await this.plugin.commit(false); }
   async onRename(file: TFile): Promise<void> { this.plugin.mapPath = file.path; this.render(); }
   getViewType(): string { return VIEW_TYPE; }
   getDisplayText(): string { return this.file?.basename || t("故事地图"); }
   getIcon(): string { return "map"; }
-  resetMapState(): void { window.clearTimeout(this.selectTimer); this.selectedId = null; this.query = ""; this.roleFilter = ""; this.inspectorOpen = false; }
+  resetMapState(): void { this.cancelRename(); window.clearTimeout(this.selectTimer); this.selectedId = null; this.query = ""; this.roleFilter = ""; this.inspectorOpen = false; }
   async onOpen(): Promise<void> { this.render(); }
-  async onClose(): Promise<void> { window.clearTimeout(this.selectTimer); this.disposeDescription?.(); }
+  async onClose(): Promise<void> { this.cancelRename(); window.clearTimeout(this.selectTimer); this.disposeDescription?.(); }
 
   render(): void {
+    if (this.renameInput) this.renameInput.onblur = null;
+    this.disposeRenameSize?.(); this.disposeRenameSize = undefined;
+    this.renameInput = undefined; this.renameOriginalTitle = undefined;
     this.disposeDescription?.();
     this.disposeDescription = undefined;
     const root = this.containerEl.children[1] as HTMLElement;
@@ -578,6 +589,7 @@ class StoryMapView extends FileView {
     status.createSpan({ text: this.plugin.saveStatusText(), cls: "story-map-save-status" });
     status.createEl("button", { text: t("保存"), attr: { "aria-label": t("立即保存或重试保存") } }).onclick = () => void this.plugin.commit(false);
     if (this.plugin.conflicted) status.createEl("button", { text: t("文件冲突") }).onclick = () => new ConflictModal(this.plugin).open();
+    this.restoreRename();
     viewport.scrollLeft = scrollLeft; viewport.scrollTop = scrollTop;
   }
 
@@ -613,7 +625,7 @@ class StoryMapView extends FileView {
       box.setAttribute("data-label", t("活动 Activity"));
       box.style.gridColumn = `span ${activityTasks.length + 1}`;
       const name = box.createEl("button", { text: activity.title, cls: "story-map-activity-name", attr: { "aria-label": `${taskT("活动详情")}: ${activity.title}` } });
-      name.onclick = event => { event.stopPropagation(); new ActivityEditorModal(this.plugin, activity).open(); };
+      this.editableTitle(box, name, "activity", activity.id, () => new ActivityEditorModal(this.plugin, activity).open());
       box.oncontextmenu = e => this.activityMenu(e, activity);
       box.draggable = true; box.ondragstart = e => e.dataTransfer?.setData(ACTIVITY_DRAG, activity.id);
       this.dropTarget(box, ACTIVITY_DRAG, id => moveActivity(this.plugin.data, id, activity.id));
@@ -640,7 +652,7 @@ class StoryMapView extends FileView {
       this.dropTarget(box, TASK_DRAG, id => moveTask(this.plugin.data, id, task.activityId, task.id));
       if (isTaskColor(task.color)) { box.addClass("story-map-task-colored"); box.style.setProperty("--task-accent", colorBackground(task.color)); }
       const taskName = box.createEl("button", { text: task.title, cls: "story-map-task-name", attr: { "aria-label": `${taskT("任务详情")}: ${task.title}` } });
-      taskName.onclick = event => { event.stopPropagation(); new TaskEditorModal(this.plugin, task).open(); };
+      this.editableTitle(box, taskName, "task", task.id, () => new TaskEditorModal(this.plugin, task).open());
       if (task.description || task.attachments?.length) taskName.createSpan({ text: ` ▤${task.attachments?.length ? ` · ${task.attachments.length}` : ""}`, cls: "story-map-task-content-mark" });
       const siblings = tasks.filter(item => item.activityId === task.activityId);
       if (siblings[0]?.id === task.id) box.addClass("is-activity-start");
@@ -702,7 +714,8 @@ class StoryMapView extends FileView {
     card.ondragover = e => { if (!dragging(e, STORY_DRAG)) return; e.preventDefault(); e.stopPropagation(); card.addClass("is-insert-target"); };
     card.ondragleave = () => card.removeClass("is-insert-target");
     card.ondrop = e => { e.preventDefault(); e.stopPropagation(); card.removeClass("is-insert-target"); const storyId = e.dataTransfer?.getData(STORY_DRAG); if (storyId && storyId !== story.id) this.moveStory(storyId, task, release, story.id); };
-    card.createEl("strong", { text: story.title });
+    const storyTitle = card.createEl("strong", { text: story.title });
+    this.editableTitle(card, storyTitle, "story", story.id);
     const assignedRole = this.plugin.data.roles.find(role => role.id === story.roleId);
     if (assignedRole) {
       const roles = card.createDiv("story-map-card-roles"); roles.createSpan({ text: assignedRole.name, attr: { title: assignedRole.description || assignedRole.name } });
@@ -789,33 +802,119 @@ class StoryMapView extends FileView {
       tasks.splice(insertAt < 0 ? tasks.length : insertAt, 0, task);
     }).open();
   }
-  private renameActivity(activity: Activity): void {
-    const element = Array.from(this.contentEl.querySelectorAll<HTMLElement>(".story-map-activity")).find(item => item.id === `activity-${activity.id}`)?.querySelector<HTMLElement>(".story-map-activity-name");
-    if (element) this.inlineEdit(element, activity.title, value => { activity.title = value; });
-  }
-  private renameTask(task: Task): void {
-    const element = Array.from(this.contentEl.querySelectorAll<HTMLElement>(".story-map-task")).find(item => item.dataset.taskId === task.id)?.querySelector<HTMLElement>(".story-map-task-name");
-    if (element) this.inlineEdit(element, task.title, value => { task.title = value; });
-  }
-  private inlineEdit(element: HTMLElement, initial: string, save: (value: string) => void, allowEmpty = false): void {
-    const input = createEl("input"); input.className = "story-map-inline-input"; input.value = initial;
-    if (element.matches(".story-map-add-activity")) input.addClass("story-map-inline-activity");
-    input.setAttribute("aria-label", element.getAttribute("aria-label") || t("修改名称"));
-    input.title = t("Enter 保存 · Esc 取消");
-    element.replaceWith(input); input.scrollIntoView({ block: "nearest", inline: "nearest" }); input.focus(); input.select();
-    let done = false;
-    const finish = (cancel: boolean): void => {
-      if (done) return; done = true;
-      const value = input.value.trim(); input.replaceWith(element);
-      if (!cancel && (value || allowEmpty) && value !== initial) { save(value); void this.plugin.commit(); }
+  private editableTitle(box: HTMLElement, title: HTMLElement, kind: RenameKind, id: string, openDetails?: () => void): void {
+    const row = box.createDiv("story-map-card-title");
+    row.dataset.renameKind = kind; row.dataset.renameId = id;
+    title.addClass("story-map-rename-title"); row.append(title);
+    title.setAttribute("aria-label", `${t("修改名称")}: ${title.textContent || ""}`);
+    if (kind === "story") { title.setAttribute("role", "button"); title.tabIndex = 0; }
+    title.onclick = event => {
+      event.stopPropagation();
+      const doc = title.ownerDocument as Document & { caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node; offset: number } | null };
+      let caret: number | undefined;
+      if (event.detail > 0) {
+        caret = title.textContent?.length || 0;
+        const point = doc.caretPositionFromPoint?.(event.clientX, event.clientY);
+        const node = point?.offsetNode;
+        const offset = point?.offset;
+        if (node && offset !== undefined && title.contains(node)) {
+          const range = doc.createRange(); range.selectNodeContents(title); range.setEnd(node, offset); caret = range.toString().length;
+        }
+      }
+      this.beginRename(kind, id, caret);
     };
-    input.onblur = () => finish(false);
+    title.onkeydown = event => {
+      if (kind === "story" && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault(); event.stopPropagation(); this.beginRename(kind, id);
+      }
+    };
+    title.ondblclick = event => event.stopPropagation();
+    title.ondragstart = event => { event.preventDefault(); event.stopPropagation(); };
+    if (openDetails) {
+      const label = taskT(kind === "activity" ? "活动详情" : "任务详情");
+      const details = row.createEl("button", { cls: "story-map-details-button", attr: { "aria-label": `${label}: ${title.textContent || ""}`, title: label } });
+      setIcon(details, "file-text");
+      details.onclick = event => { event.stopPropagation(); openDetails(); };
+      details.ondragstart = event => { event.preventDefault(); event.stopPropagation(); };
+    }
+  }
+  private renameEntity(draft: RenameDraft): Activity | Task | Story | undefined {
+    const data = draft.plugin.data;
+    const items = draft.kind === "activity" ? data.activities : draft.kind === "task" ? data.tasks : data.stories;
+    return items.find(item => item.id === draft.id);
+  }
+  private beginRename(kind: RenameKind, id: string, caret?: number): void {
+    if (this.renameDraft?.busy) return;
+    this.cancelRename();
+    window.clearTimeout(this.selectTimer);
+    const draft: RenameDraft = { kind, id, value: "", busy: false, plugin: this.plugin, caret };
+    const entity = this.renameEntity(draft);
+    if (!entity) return;
+    draft.value = entity.title;
+    this.renameDraft = draft; draft.plugin.activeEditors++;
+    this.restoreRename(true);
+  }
+  private cancelRename(): void {
+    if (this.renameInput) {
+      this.renameInput.onblur = null;
+      const box = this.renameInput.closest<HTMLElement>(".story-map-card, .story-map-task, .story-map-activity");
+      if (box) box.draggable = true;
+      if (this.renameOriginalTitle) this.renameInput.replaceWith(this.renameOriginalTitle);
+    }
+    this.disposeRenameSize?.(); this.disposeRenameSize = undefined;
+    this.renameInput = undefined; this.renameOriginalTitle = undefined;
+    if (this.renameDraft) { this.renameDraft.plugin.activeEditors--; this.renameDraft = undefined; }
+  }
+  private restoreRename(select = false): void {
+    const draft = this.renameDraft;
+    if (!draft) return;
+    const row = Array.from(this.contentEl.querySelectorAll<HTMLElement>(".story-map-card-title"))
+      .find(item => item.dataset.renameKind === draft.kind && item.dataset.renameId === draft.id);
+    const title = row?.querySelector<HTMLElement>(".story-map-rename-title");
+    if (!row || !title || !this.renameEntity(draft)) { this.cancelRename(); return; }
+    const box = row.parentElement;
+    if (box) box.draggable = false;
+    const input = row.createEl("textarea", { cls: "story-map-inline-input", attr: { "aria-label": t("修改名称"), rows: "1", title: `${t("Enter 保存 · Esc 取消")} · Shift+Enter ↵` } });
+    input.value = draft.value;
+    title.replaceWith(input); this.renameInput = input; this.renameOriginalTitle = title; input.disabled = draft.busy;
+    this.disposeRenameSize = autoSizeDescription(input);
+    input.oninput = () => { draft.value = input.value; };
+    input.onclick = event => event.stopPropagation();
+    input.ondblclick = event => event.stopPropagation();
+    input.onmousedown = event => event.stopPropagation();
+    input.ondragstart = event => { event.preventDefault(); event.stopPropagation(); };
+    input.onblur = () => { void this.finishRename(false); };
     input.onkeydown = event => {
-      event.stopPropagation(); if (event.isComposing) return;
-      if (event.key === "Enter") { event.preventDefault(); finish(false); }
-      if (event.key === "Escape") { event.preventDefault(); finish(true); }
+      event.stopPropagation();
+      if (event.isComposing) return;
+      if ((event.key === "Enter" && !event.shiftKey) || event.key === "Escape") {
+        event.preventDefault(); void this.finishRename(event.key === "Escape");
+      }
     };
+    if (!draft.busy) {
+      input.focus();
+      if (select) {
+        if (draft.caret === undefined) input.select();
+        else { const caret = Math.min(draft.caret, input.value.length); input.setSelectionRange(caret, caret); }
+      }
+    }
   }
+  private async finishRename(cancel: boolean): Promise<void> {
+    const draft = this.renameDraft;
+    if (!draft || draft.busy) return;
+    const entity = this.renameEntity(draft);
+    const value = draft.value.trim();
+    if (cancel || !entity || !value || value === entity.title) { this.cancelRename(); return; }
+    if (draft.plugin.conflicted) { new Notice(t("地图已被外部修改，已停止保存；请先备份当前修改")); return; }
+    draft.busy = true;
+    const saved = await draft.plugin.commitModal(() => { entity.title = value; });
+    if (this.renameDraft !== draft) return;
+    if (saved) this.cancelRename();
+    else draft.busy = false;
+    this.render();
+  }
+  private renameActivity(activity: Activity): void { this.beginRename("activity", activity.id); }
+  private renameTask(task: Task): void { this.beginRename("task", task.id); }
   private moveStory(storyId: string, task: Task, release: Release, beforeId?: string): void {
     const stories = this.plugin.data.stories;
     const from = stories.findIndex(story => story.id === storyId);
@@ -843,7 +942,7 @@ class StoryMapView extends FileView {
       if (id && move(id)) void this.plugin.commit();
     };
   }
-  private storyMenu(event: MouseEvent, story: Story): void { event.preventDefault(); const menu = new Menu().setUseNativeMenu(false); menu.addItem(i => i.setTitle(t("编辑")).setIcon("pencil").onClick(() => new StoryEditorModal(this.plugin, story).open())); menu.addItem(i => i.setTitle(t("打开关联笔记")).setIcon("file-text").onClick(() => void this.plugin.openStoryNote(story))); menu.addSeparator(); menu.addItem(i => i.setTitle(t("删除")).setIcon("trash").onClick(() => { this.plugin.data.stories.remove(story); this.selectedId = null; void this.plugin.commit(); })); menu.showAtMouseEvent(event); }
+  private storyMenu(event: MouseEvent, story: Story): void { event.preventDefault(); const menu = new Menu().setUseNativeMenu(false); menu.addItem(i => i.setTitle(t("编辑")).setIcon("pencil").onClick(() => new StoryEditorModal(this.plugin, story).open())); menu.addItem(i => i.setTitle(t("修改名称")).setIcon("pencil").onClick(() => this.beginRename("story", story.id))); menu.addItem(i => i.setTitle(t("打开关联笔记")).setIcon("file-text").onClick(() => void this.plugin.openStoryNote(story))); menu.addSeparator(); menu.addItem(i => i.setTitle(t("删除")).setIcon("trash").onClick(() => { this.plugin.data.stories.remove(story); this.selectedId = null; void this.plugin.commit(); })); menu.showAtMouseEvent(event); }
   private activityMenu(event: MouseEvent, activity: Activity): void {
     event.preventDefault(); const menu = new Menu().setUseNativeMenu(false);
     menu.addItem(i => i.setTitle(taskT("活动详情")).setIcon("file-text").onClick(() => new ActivityEditorModal(this.plugin, activity).open()));
