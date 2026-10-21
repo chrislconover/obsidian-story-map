@@ -1,7 +1,7 @@
 {
   "id": "story-map",
   "name": "Story Map",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "minAppVersion": "1.8.10",
   "description": "Map user journeys and plan releases with user story mapping. Keep local maps alongside project notes so humans and file-capable agents can work from the same plan.",
   "author": "Dahui",

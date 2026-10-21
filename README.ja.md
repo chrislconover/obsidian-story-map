@@ -6,7 +6,13 @@
 
 ユーザージャーニーを可視化し、アクティビティとタスクに分解して、ユーザーストーリーをリリースのマイルストーンごとに整理します。人は画面上で操作し、保管庫のファイルにアクセスできるエージェントは、プロジェクトのノートとあわせて同じマップを読み書きできます。
 
-**[1.5.1 をダウンロード](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [問題を報告](https://github.com/prohui/obsidian-story-map/issues) · [MIT ライセンス](LICENSE)
+**[1.6.0 をダウンロード](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [問題を報告](https://github.com/prohui/obsidian-story-map/issues) · [MIT ライセンス](LICENSE)
+
+## Activity と Task の並べ替え
+
+Activity の見出しを別の Activity にドラッグすると、その直前に移動します。**+ Activity** にドロップすると末尾に移動し、配下の Task と Story も一緒に移動します。Task の見出しを別の Task にドラッグすると、その直前に挿入されます。Activity の **+ Task** 領域にドロップすると、その Activity の末尾に移動します。別の Activity への移動にも対応し、関連する Story も移動します。青い線が挿入位置を示します。移動は取り消し・やり直しが可能です。
+
+Activity と Task のドラッグによる並べ替えを [PR #4](https://github.com/prohui/obsidian-story-map/pull/4) で提供してくださった [Chris (@chrislconover)](https://github.com/chrislconover) に感謝します。
 
 ## Obsidian でストーリーマッピングを行う理由
 
@@ -35,7 +41,7 @@ Obsidian なら、計画を要件、調査、実装のノートと同じ場所�
 
 ![アクティビティ、タスク、マイルストーンのレーン、ストーリー詳細を表示した Story Map](docs/images/obsidian-ja.jpg)
 
-*Obsidian 1.13.7 と Story Map 1.5.1 の実際の画面です。インターフェースとサンプルデータは日本語で、ファイルサイドバーを非表示にしています。*
+*Obsidian 1.13.7 と Story Map 1.6.0 の実際の画面です。インターフェースとサンプルデータは日本語で、ファイルサイドバーを非表示にしています。*
 
 - **コンパクトな詳細表示。** 説明欄は内容に合わせて伸びます。ステータス、ロール、優先度、見積もり、タグ、リンク先ノートは追加のプロパティを展開せずに編集できます。
 - **ストーリーとタスクの色。** 8 色のプリセット、カラーピッカー、HEX 値に対応。タスクの色はテーマの既定値にも戻せます。

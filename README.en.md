@@ -6,7 +6,13 @@ English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) ·
 
 Build a shared product plan: map the user journey, break it into activities and tasks, and organize user stories into release milestones. People work visually; agents with access to your vault can read and edit the underlying map files alongside your project notes.
 
-**[Download 1.5.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [Report an issue](https://github.com/prohui/obsidian-story-map/issues) · [MIT License](LICENSE)
+**[Download 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Report an issue](https://github.com/prohui/obsidian-story-map/issues) · [MIT License](LICENSE)
+
+## Reorder Activities and Tasks
+
+Drag an Activity header onto another Activity to place it before that Activity, or onto **+ Activity** to move it to the end. Its Tasks and Stories follow it. Drag a Task header onto another Task to insert it before that Task, or onto an Activity’s **+ Task** space to move it to the end of that Activity. Tasks can move between Activities, taking their Stories with them. A blue insertion line marks the drop position. Each effective move can be undone or redone.
+
+Thanks to [Chris (@chrislconover)](https://github.com/chrislconover) for contributing Activity and Task drag-and-drop reordering in [PR #4](https://github.com/prohui/obsidian-story-map/pull/4).
 
 ## Why user story mapping in Obsidian?
 

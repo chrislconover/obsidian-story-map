@@ -6,7 +6,13 @@
 
 以 User Story Mapping（用户故事地图）规划产品：梳理用户旅程，拆分活动和任务，再按发布里程碑组织用户故事。人通过可视化界面规划，获得 Vault 文件访问权限的 agent 则可以结合项目笔记，读取和编辑同一份地图文件。
 
-**[下载 1.5.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [反馈问题](https://github.com/prohui/obsidian-story-map/issues) · [MIT 许可证](LICENSE)
+**[下载 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [反馈问题](https://github.com/prohui/obsidian-story-map/issues) · [MIT 许可证](LICENSE)
+
+## 调整 Activity 和 Task 顺序
+
+将 Activity 标题拖到另一个 Activity 上，可插入其前方；拖到 **+ 活动 Activity** 可移至末尾，下属 Task 和 Story 会一起移动。将 Task 标题拖到另一个 Task 上，可插入其前方；拖到某个 Activity 的 **+ 任务 Task** 空间，可移至该 Activity 末尾。Task 支持跨 Activity 移动，关联 Story 会同步归属。蓝色插入线提示放置位置，每次有效移动均支持撤销和重做。
+
+感谢 [Chris (@chrislconover)](https://github.com/chrislconover) 在 [PR #4](https://github.com/prohui/obsidian-story-map/pull/4) 中贡献 Activity 和 Task 拖拽排序功能。
 
 ## 为什么把 User Story Mapping 放在 Obsidian？
 

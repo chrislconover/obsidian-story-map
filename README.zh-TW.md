@@ -6,7 +6,13 @@
 
 以 User Story Mapping（使用者故事地圖）規劃產品：梳理使用者旅程，拆分活動與任務，再按發布里程碑組織使用者故事。人透過視覺化介面規劃，取得 Vault 檔案存取權限的 agent 則可結合專案筆記，讀取與編輯同一份地圖檔案。
 
-**[下載 1.5.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [回報問題](https://github.com/prohui/obsidian-story-map/issues) · [MIT 授權條款](LICENSE)
+**[下載 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [回報問題](https://github.com/prohui/obsidian-story-map/issues) · [MIT 授權條款](LICENSE)
+
+## 調整 Activity 和 Task 順序
+
+將 Activity 標題拖到另一個 Activity 上，可插入其前方；拖到 **+ Activity** 可移至末尾，所屬 Task 和 Story 會一起移動。將 Task 標題拖到另一個 Task 上，可插入其前方；拖到某個 Activity 的 **+ Task** 區域，可移至該 Activity 末尾。Task 支援跨 Activity 移動，相關 Story 會同步更新歸屬。藍色插入線提示放置位置，每次有效移動均支援復原和重做。
+
+感謝 [Chris (@chrislconover)](https://github.com/chrislconover) 在 [PR #4](https://github.com/prohui/obsidian-story-map/pull/4) 中貢獻 Activity 和 Task 拖曳排序功能。
 
 ## 為什麼在 Obsidian 使用故事地圖？
 
@@ -35,7 +41,7 @@
 
 ![Story Map 的活動、任務、里程碑泳道與故事詳細資料側欄](docs/images/obsidian-zh-TW.jpg)
 
-*Obsidian 1.13.7 與 Story Map 1.5.1 的實際執行截圖，介面與範例內容均為繁體中文；隱藏檔案側欄以凸顯地圖。*
+*Obsidian 1.13.7 與 Story Map 1.6.0 的實際執行截圖，介面與範例內容均為繁體中文；隱藏檔案側欄以凸顯地圖。*
 
 - **精簡的故事詳細資料。** 描述隨文字高度展開；狀態、角色、優先順序、估點、標籤與關聯筆記直接顯示，無須展開更多屬性。
 - **故事與任務顏色。** 八種預設色塊與自訂取色器、HEX 色碼；任務也可還原為佈景主題預設色。

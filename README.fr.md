@@ -6,7 +6,13 @@
 
 Construisez un plan produit commun : représentez le parcours utilisateur, décomposez-le en activités et en tâches, puis répartissez les user stories entre les jalons de livraison. Vous travaillez visuellement ; les agents ayant accès aux fichiers du coffre peuvent lire et modifier les mêmes cartes avec vos notes de projet.
 
-**[Télécharger la version 1.5.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [Signaler un problème](https://github.com/prohui/obsidian-story-map/issues) · [Licence MIT](LICENSE)
+**[Télécharger la version 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Signaler un problème](https://github.com/prohui/obsidian-story-map/issues) · [Licence MIT](LICENSE)
+
+## Réorganiser les Activities et les Tasks
+
+Faites glisser l’en-tête d’une Activity sur une autre pour la placer avant celle-ci, ou sur **+ Activity** pour la déplacer à la fin. Ses Tasks et Stories suivent. Faites glisser l’en-tête d’une Task sur une autre pour l’insérer avant celle-ci, ou sur la zone **+ Task** d’une Activity pour la déplacer à la fin de cette Activity. Les Tasks peuvent changer d’Activity avec leurs Stories. Une ligne bleue indique la position d’insertion. Chaque déplacement effectif peut être annulé ou rétabli.
+
+Merci à [Chris (@chrislconover)](https://github.com/chrislconover) pour la réorganisation des Activities et des Tasks par glisser-déposer dans la [PR #4](https://github.com/prohui/obsidian-story-map/pull/4).
 
 ## Pourquoi utiliser le story mapping dans Obsidian ?
 
@@ -35,7 +41,7 @@ Planifiez sur la carte et modifiez les détails dans un panneau latéral compact
 
 ![Story Map avec activités, tâches, couloirs de jalons et panneau de détails](docs/images/obsidian-fr.jpg)
 
-*Capture réelle d'Obsidian 1.13.7 avec Story Map 1.5.1. L'interface et les données d'exemple sont en français ; la barre latérale des fichiers est masquée.*
+*Capture réelle d'Obsidian 1.13.7 avec Story Map 1.6.0. L'interface et les données d'exemple sont en français ; la barre latérale des fichiers est masquée.*
 
 - **Détails compacts.** La description s'agrandit avec le texte. Statut, rôle, priorité, estimation, étiquettes et notes liées restent accessibles sans déplier d'autres propriétés.
 - **Couleurs des stories et des tâches.** Huit couleurs prédéfinies, sélecteur de couleur et valeur HEX. Une tâche peut aussi reprendre la couleur du thème.

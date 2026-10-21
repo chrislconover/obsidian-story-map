@@ -6,7 +6,13 @@
 
 사용자 여정을 시각화하고 활동과 작업으로 나눈 뒤, 사용자 스토리를 릴리스 마일스톤별로 정리하세요. 사람은 화면에서 계획을 편집하고, 보관함 파일에 접근할 수 있는 에이전트는 프로젝트 노트와 함께 같은 맵 파일을 읽고 수정할 수 있습니다.
 
-**[1.5.1 다운로드](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [문제 보고](https://github.com/prohui/obsidian-story-map/issues) · [MIT 라이선스](LICENSE)
+**[1.6.0 다운로드](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [문제 보고](https://github.com/prohui/obsidian-story-map/issues) · [MIT 라이선스](LICENSE)
+
+## Activity와 Task 순서 변경
+
+Activity 제목을 다른 Activity로 드래그하면 그 앞에 배치됩니다. **+ Activity**에 놓으면 마지막으로 이동하며 하위 Task와 Story도 함께 이동합니다. Task 제목을 다른 Task로 드래그하면 그 앞에 삽입됩니다. Activity의 **+ Task** 영역에 놓으면 해당 Activity의 마지막으로 이동합니다. 다른 Activity로 이동할 때도 연결된 Story가 함께 이동합니다. 파란색 선이 삽입 위치를 표시하며 이동은 실행 취소 및 다시 실행할 수 있습니다.
+
+[PR #4](https://github.com/prohui/obsidian-story-map/pull/4)에서 Activity와 Task 드래그 정렬 기능을 기여해 주신 [Chris (@chrislconover)](https://github.com/chrislconover)님께 감사드립니다.
 
 ## Obsidian에서 사용자 스토리 맵을 쓰는 이유
 
@@ -35,7 +41,7 @@ Obsidian에서는 요구 사항, 조사 자료, 구현 노트와 같은 공간�
 
 ![활동, 작업, 마일스톤 레인과 스토리 상세 패널이 있는 Story Map](docs/images/obsidian-ko.jpg)
 
-*Obsidian 1.13.7과 Story Map 1.5.1의 실제 화면입니다. 인터페이스와 예제 내용 모두 한국어이며, 맵에 집중할 수 있도록 파일 사이드바를 숨겼습니다.*
+*Obsidian 1.13.7과 Story Map 1.6.0의 실제 화면입니다. 인터페이스와 예제 내용 모두 한국어이며, 맵에 집중할 수 있도록 파일 사이드바를 숨겼습니다.*
 
 - **간결한 스토리 상세 정보.** 설명란은 내용에 맞춰 늘어납니다. 상태, 역할, 우선순위, 추정치, 태그, 연결 노트는 추가 속성을 펼치지 않고 편집할 수 있습니다.
 - **스토리와 작업 색상.** 기본 8색, 색상 선택기와 HEX 값을 지원합니다. 작업 색상은 테마 기본값으로 되돌릴 수도 있습니다.

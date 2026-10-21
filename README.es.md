@@ -6,7 +6,13 @@
 
 Crea un plan de producto compartido: representa el recorrido del usuario, divídelo en actividades y tareas, y organiza las historias de usuario por hitos de entrega. Las personas trabajan de forma visual; los agentes con acceso a los archivos de la bóveda pueden leer y editar los mismos mapas junto con las notas del proyecto.
 
-**[Descargar 1.5.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.5.1)** · [Informar de un problema](https://github.com/prohui/obsidian-story-map/issues) · [Licencia MIT](LICENSE)
+**[Descargar 1.6.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.6.0)** · [Informar de un problema](https://github.com/prohui/obsidian-story-map/issues) · [Licencia MIT](LICENSE)
+
+## Reordenar Activities y Tasks
+
+Arrastra la cabecera de una Activity sobre otra para colocarla delante, o sobre **+ Activity** para moverla al final. Sus Tasks y Stories se mueven con ella. Arrastra la cabecera de una Task sobre otra para insertarla delante, o sobre el espacio **+ Task** de una Activity para moverla al final de esa Activity. Las Tasks pueden cambiar de Activity junto con sus Stories. Una línea azul indica la posición de inserción. Cada movimiento efectivo se puede deshacer y rehacer.
+
+Gracias a [Chris (@chrislconover)](https://github.com/chrislconover) por contribuir la reorganización de Activities y Tasks mediante arrastrar y soltar en la [PR #4](https://github.com/prohui/obsidian-story-map/pull/4).
 
 ## ¿Por qué crear mapas de historias en Obsidian?
 
@@ -35,7 +41,7 @@ Planifica en el mapa y edita los detalles en un panel lateral compacto.
 
 ![Story Map con actividades, tareas, carriles de hitos y detalles de una historia](docs/images/obsidian-es.jpg)
 
-*Captura real de Obsidian 1.13.7 con Story Map 1.5.1. La interfaz y los datos de ejemplo están en español; la barra lateral de archivos está oculta.*
+*Captura real de Obsidian 1.13.7 con Story Map 1.6.0. La interfaz y los datos de ejemplo están en español; la barra lateral de archivos está oculta.*
 
 - **Detalles compactos.** La descripción crece con el texto. Estado, rol, prioridad, estimación, etiquetas y notas vinculadas se editan sin desplegar más propiedades.
 - **Colores de historias y tareas.** Ocho colores predefinidos, selector de color y valores HEX. Las tareas también pueden recuperar el color predeterminado del tema.
