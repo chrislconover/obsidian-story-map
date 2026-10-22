@@ -6,7 +6,7 @@
 
 以 User Story Mapping（用户故事地图）规划产品：梳理用户旅程，拆分活动和任务，再按发布里程碑组织用户故事。人通过可视化界面规划，获得 Vault 文件访问权限的 agent 则可以结合项目笔记，读取和编辑同一份地图文件。
 
-**[下载 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [反馈问题](https://github.com/prohui/obsidian-story-map/issues) · [MIT 许可证](LICENSE)
+**[下载 1.7.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.1)** · [反馈问题](https://github.com/prohui/obsidian-story-map/issues) · [MIT 许可证](LICENSE)
 
 ## 直接修改卡片标题
 

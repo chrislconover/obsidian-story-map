@@ -6,7 +6,7 @@ English · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) ·
 
 Build a shared product plan: map the user journey, break it into activities and tasks, and organize user stories into release milestones. People work visually; agents with access to your vault can read and edit the underlying map files alongside your project notes.
 
-**[Download 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Report an issue](https://github.com/prohui/obsidian-story-map/issues) · [MIT License](LICENSE)
+**[Download 1.7.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.1)** · [Report an issue](https://github.com/prohui/obsidian-story-map/issues) · [MIT License](LICENSE)
 
 ## Rename titles inline
 

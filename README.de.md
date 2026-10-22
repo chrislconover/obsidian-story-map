@@ -6,7 +6,7 @@
 
 Erstelle einen gemeinsamen Produktplan: Bilde die Nutzerreise ab, unterteile sie in Aktivitäten und Aufgaben und ordne User Storys den Meilensteinen deiner Releases zu. Menschen arbeiten visuell; Agenten mit Dateizugriff auf den Vault können dieselben Maps zusammen mit den Projektnotizen lesen und bearbeiten.
 
-**[1.7.0 herunterladen](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Problem melden](https://github.com/prohui/obsidian-story-map/issues) · [MIT-Lizenz](LICENSE)
+**[1.7.1 herunterladen](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.1)** · [Problem melden](https://github.com/prohui/obsidian-story-map/issues) · [MIT-Lizenz](LICENSE)
 
 ## Titel direkt umbenennen
 
@@ -45,7 +45,7 @@ Plane auf der Map und bearbeite Details in einem kompakten Seitenbereich.
 
 ![Story Map mit Aktivitäten, Aufgaben, Meilenstein-Bahnen und Story-Details](docs/images/obsidian-de.jpg)
 
-*Echter Screenshot aus Obsidian 1.13.7 mit Story Map 1.7.0. Oberfläche und Beispieldaten sind auf Deutsch; die Dateiseitenleiste ist ausgeblendet.*
+*Echter Screenshot aus Obsidian 1.13.7 mit Story Map 1.7.1. Oberfläche und Beispieldaten sind auf Deutsch; die Dateiseitenleiste ist ausgeblendet.*
 
 - **Kompakte Story-Details:** Das Beschreibungsfeld wächst mit dem Text. Status, Rolle, Priorität, Schätzung, Tags und verknüpfte Notizen sind ohne Aufklappen weiterer Eigenschaften zugänglich.
 - **Farben für Storys und Aufgaben:** Acht Vorgaben, Farbauswahl und HEX-Werte. Aufgaben können auch die Standardfarbe des Themes verwenden.

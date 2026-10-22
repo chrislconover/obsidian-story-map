@@ -6,7 +6,7 @@
 
 以 User Story Mapping（使用者故事地圖）規劃產品：梳理使用者旅程，拆分活動與任務，再按發布里程碑組織使用者故事。人透過視覺化介面規劃，取得 Vault 檔案存取權限的 agent 則可結合專案筆記，讀取與編輯同一份地圖檔案。
 
-**[下載 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [回報問題](https://github.com/prohui/obsidian-story-map/issues) · [MIT 授權條款](LICENSE)
+**[下載 1.7.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.1)** · [回報問題](https://github.com/prohui/obsidian-story-map/issues) · [MIT 授權條款](LICENSE)
 
 ## 直接修改卡片標題
 
@@ -45,7 +45,7 @@
 
 ![Story Map 的活動、任務、里程碑泳道與故事詳細資料側欄](docs/images/obsidian-zh-TW.jpg)
 
-*Obsidian 1.13.7 與 Story Map 1.7.0 的實際執行截圖，介面與範例內容均為繁體中文；隱藏檔案側欄以凸顯地圖。*
+*Obsidian 1.13.7 與 Story Map 1.7.1 的實際執行截圖，介面與範例內容均為繁體中文；隱藏檔案側欄以凸顯地圖。*
 
 - **精簡的故事詳細資料。** 描述隨文字高度展開；狀態、角色、優先順序、估點、標籤與關聯筆記直接顯示，無須展開更多屬性。
 - **故事與任務顏色。** 八種預設色塊與自訂取色器、HEX 色碼；任務也可還原為佈景主題預設色。

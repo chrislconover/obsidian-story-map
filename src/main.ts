@@ -49,7 +49,7 @@ function storyColorPicker(parent: HTMLElement, current: Story["color"], change: 
 
 const VIEW_TYPE = "story-map-view";
 const DATA_PATH = ".story-map.json";
-const PLUGIN_VERSION = "1.7.0";
+const PLUGIN_VERSION = "1.7.1";
 const STATUS_LABELS: Record<Story["status"], string> = { idea: "想法", planned: "已规划", doing: "进行中", done: "已完成" };
 const PRIORITY_LABELS: Record<Story["priority"], string> = { low: "低", medium: "中", high: "高" };
 

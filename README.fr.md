@@ -6,7 +6,7 @@
 
 Construisez un plan produit commun : représentez le parcours utilisateur, décomposez-le en activités et en tâches, puis répartissez les user stories entre les jalons de livraison. Vous travaillez visuellement ; les agents ayant accès aux fichiers du coffre peuvent lire et modifier les mêmes cartes avec vos notes de projet.
 
-**[Télécharger la version 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Signaler un problème](https://github.com/prohui/obsidian-story-map/issues) · [Licence MIT](LICENSE)
+**[Télécharger la version 1.7.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.1)** · [Signaler un problème](https://github.com/prohui/obsidian-story-map/issues) · [Licence MIT](LICENSE)
 
 ## Renommer les titres directement
 
@@ -45,7 +45,7 @@ Planifiez sur la carte et modifiez les détails dans un panneau latéral compact
 
 ![Story Map avec activités, tâches, couloirs de jalons et panneau de détails](docs/images/obsidian-fr.jpg)
 
-*Capture réelle d'Obsidian 1.13.7 avec Story Map 1.7.0. L'interface et les données d'exemple sont en français ; la barre latérale des fichiers est masquée.*
+*Capture réelle d'Obsidian 1.13.7 avec Story Map 1.7.1. L'interface et les données d'exemple sont en français ; la barre latérale des fichiers est masquée.*
 
 - **Détails compacts.** La description s'agrandit avec le texte. Statut, rôle, priorité, estimation, étiquettes et notes liées restent accessibles sans déplier d'autres propriétés.
 - **Couleurs des stories et des tâches.** Huit couleurs prédéfinies, sélecteur de couleur et valeur HEX. Une tâche peut aussi reprendre la couleur du thème.

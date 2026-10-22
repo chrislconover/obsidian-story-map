@@ -6,7 +6,7 @@
 
 Crea un plan de producto compartido: representa el recorrido del usuario, divídelo en actividades y tareas, y organiza las historias de usuario por hitos de entrega. Las personas trabajan de forma visual; los agentes con acceso a los archivos de la bóveda pueden leer y editar los mismos mapas junto con las notas del proyecto.
 
-**[Descargar 1.7.0](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.0)** · [Informar de un problema](https://github.com/prohui/obsidian-story-map/issues) · [Licencia MIT](LICENSE)
+**[Descargar 1.7.1](https://github.com/prohui/obsidian-story-map/releases/tag/1.7.1)** · [Informar de un problema](https://github.com/prohui/obsidian-story-map/issues) · [Licencia MIT](LICENSE)
 
 ## Cambiar títulos directamente
 
@@ -45,7 +45,7 @@ Planifica en el mapa y edita los detalles en un panel lateral compacto.
 
 ![Story Map con actividades, tareas, carriles de hitos y detalles de una historia](docs/images/obsidian-es.jpg)
 
-*Captura real de Obsidian 1.13.7 con Story Map 1.7.0. La interfaz y los datos de ejemplo están en español; la barra lateral de archivos está oculta.*
+*Captura real de Obsidian 1.13.7 con Story Map 1.7.1. La interfaz y los datos de ejemplo están en español; la barra lateral de archivos está oculta.*
 
 - **Detalles compactos.** La descripción crece con el texto. Estado, rol, prioridad, estimación, etiquetas y notas vinculadas se editan sin desplegar más propiedades.
 - **Colores de historias y tareas.** Ocho colores predefinidos, selector de color y valores HEX. Las tareas también pueden recuperar el color predeterminado del tema.
