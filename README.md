@@ -152,5 +152,3 @@ If Story Map helps you plan your projects, you can [buy me a coffee](https://ko-
 ## License
 
 [MIT](LICENSE) © 2026 Dahui. Not affiliated with Obsidian, Miro, or XMind.
-
-三类卡片标题均支持自动换行，编辑框随内容增高或缩小。Enter 保存，Shift+Enter 手动换行，Esc 取消。
