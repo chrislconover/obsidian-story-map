@@ -159,4 +159,3 @@ npm test
 
 海外用户也可以[通过 Ko-fi 支持开发](https://ko-fi.com/hexhe)。
 
-三类卡片标题均支持自动换行，编辑框随内容增高或缩小。Enter 保存，Shift+Enter 手动换行，Esc 取消。
