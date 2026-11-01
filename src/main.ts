@@ -231,17 +231,19 @@ class StoryFilePicker extends FuzzySuggestModal<TFile> {
   onChooseItem(file: TFile): void { this.choose(file); }
 }
 
-function noteSelector(parent: HTMLElement, plugin: StoryMapPlugin, initial: string | undefined, change: (path: string | undefined) => void): void {
+function noteSelector(parent: HTMLElement, plugin: StoryMapPlugin, initial: string | undefined, change: (path: string | undefined) => void, draft: () => Story): void {
   let path = initial;
   const container = parent.createDiv("story-map-note-selector");
+  const create = async (): Promise<void> => { path = await plugin.openStoryNote({ ...draft(), notePath: path }); change(path); render(); };
   const render = (): void => {
     container.empty();
-    const select = container.createEl("button", { text: path?.split("/").pop()?.replace(/\.md$/i, "") || t("搜索笔记"), attr: { title: path || t("搜索笔记") } });
+    const exists = !!path && plugin.app.vault.getAbstractFileByPath(path) instanceof TFile;
+    const missing = !!path && !exists;
+    const select = container.createEl("button", { text: path?.split("/").pop()?.replace(/\.md$/i, "") || t("搜索笔记"), cls: missing ? "is-missing" : "", attr: { title: missing ? `${path} (${taskT("文件不存在")})` : path || t("搜索笔记") } });
     select.onclick = () => new NotePicker(plugin, selected => { path = selected; change(path); render(); }).open();
-    if (path) {
-      container.createEl("button", { text: t("打开笔记") }).onclick = () => { if (path) void plugin.app.workspace.openLinkText(path, ""); };
-      container.createEl("button", { text: t("解除关联") }).onclick = () => { path = undefined; change(undefined); render(); };
-    }
+    if (exists) container.createEl("button", { text: t("打开笔记") }).onclick = () => { if (path) void plugin.app.workspace.openLinkText(path, ""); };
+    else container.createEl("button", { text: t("创建笔记") }).onclick = () => void create();
+    if (path) container.createEl("button", { text: t("解除关联") }).onclick = () => { path = undefined; change(undefined); render(); };
   };
   render();
 }
@@ -380,7 +382,7 @@ class StoryEditorModal extends SavingModal {
     storyColorPicker(contentEl, color, value => { color = value; });
     let notePath = this.story.notePath;
     const noteRow = contentEl.createDiv("story-map-form-row"); noteRow.createEl("label", { text: t("关联笔记") });
-    noteSelector(noteRow, this.plugin, notePath, path => { notePath = path; });
+    noteSelector(noteRow, this.plugin, notePath, path => { notePath = path; }, () => ({ ...this.story, ...formValues() }));
     const roleRow = contentEl.createDiv("story-map-form-row"); roleRow.createEl("label", { text: t("角色") });
     const roleSelect = roleRow.createEl("select"); roleSelect.createEl("option", { value: "", text: t("未分配角色") });
     this.plugin.data.roles.forEach(role => roleSelect.createEl("option", { value: role.id, text: role.name })); roleSelect.value = this.story.roleId || "";
@@ -394,6 +396,17 @@ class StoryEditorModal extends SavingModal {
     prioritySelect.value = this.story.priority;
     const tagsRow = contentEl.createDiv("story-map-form-row"); tagsRow.createEl("label", { text: t("标签") });
     const tagsInput = tagsRow.createEl("input", { value: this.story.tags.join(", "), placeholder: t("用逗号分隔") });
+    const formValues = (): Pick<Story, "title" | "description" | "estimate" | "notePath" | "color" | "roleId" | "status" | "priority" | "tags"> => ({
+      title: controls.title?.value.trim() || t("未命名故事"),
+      description: controls.description?.value.trim() || "",
+      estimate: Math.max(0, Number(controls.estimate?.value) || 0),
+      notePath,
+      color,
+      roleId: roleSelect.value || undefined,
+      status: statusSelect.value as Story["status"],
+      priority: prioritySelect.value as Story["priority"],
+      tags: tagsInput.value.split(/[,，]/).map(item => item.trim()).filter(Boolean)
+    });
     const metadata = contentEl.createDiv("story-map-dialog-metadata");
     const estimateRow = controls.estimate?.parentElement;
     metadata.append(roleRow, statusRow, priorityRow);
@@ -467,16 +480,7 @@ class StoryEditorModal extends SavingModal {
         renderAttachments();
         this.importing = false;
         await this.persist(this.plugin, () => {
-      this.story.title = controls.title?.value.trim() || t("未命名故事");
-      this.story.description = controls.description?.value.trim() || "";
-      this.story.estimate = Math.max(0, Number(controls.estimate?.value) || 0);
-      this.story.notePath = notePath;
-      this.story.color = color;
-      this.story.roleId = roleSelect.value || undefined;
-      this.story.status = statusSelect.value as Story["status"];
-      this.story.priority = prioritySelect.value as Story["priority"];
-      this.story.tags = tagsInput.value.split(/[,，]/).map(item => item.trim()).filter(Boolean);
-      this.story.attachments = attachments.map(item => ({ ...item }));
+      Object.assign(this.story, formValues(), { attachments: attachments.map(item => ({ ...item })) });
       if (this.saveStory) this.saveStory(this.story);
         });
       } catch (cause) {
@@ -762,8 +766,7 @@ class StoryMapView extends FileView {
     const estimate = this.field(more, t("估点")).createEl("input", { type: "number", value: String(story.estimate), attr: { min: "0" } });
     estimate.onchange = () => { story.estimate = Math.max(0, Number(estimate.value) || 0); void this.plugin.commit(); };
     const tags = this.field(more, t("标签")).createEl("input", { value: story.tags.join(", ") }); tags.onchange = () => { story.tags = tags.value.split(/[,，]/).map(x => x.trim()).filter(Boolean); void this.plugin.commit(); };
-    noteSelector(this.field(more, t("关联笔记")), this.plugin, story.notePath, path => { story.notePath = path; void this.plugin.commit(); });
-    if (!story.notePath) more.createEl("button", { text: t("创建笔记") }).onclick = () => void this.plugin.openStoryNote(story);
+    noteSelector(this.field(more, t("关联笔记")), this.plugin, story.notePath, path => { story.notePath = path; void this.plugin.commit(); }, () => story);
 
     const descriptionRow = this.field(panel, t("描述"));
     descriptionRow.addClass("story-map-description-field");
@@ -942,7 +945,11 @@ class StoryMapView extends FileView {
       if (id && move(id)) void this.plugin.commit();
     };
   }
-  private storyMenu(event: MouseEvent, story: Story): void { event.preventDefault(); const menu = new Menu().setUseNativeMenu(false); menu.addItem(i => i.setTitle(t("编辑")).setIcon("pencil").onClick(() => new StoryEditorModal(this.plugin, story).open())); menu.addItem(i => i.setTitle(t("修改名称")).setIcon("pencil").onClick(() => this.beginRename("story", story.id))); menu.addItem(i => i.setTitle(t("打开关联笔记")).setIcon("file-text").onClick(() => void this.plugin.openStoryNote(story))); menu.addSeparator(); menu.addItem(i => i.setTitle(t("删除")).setIcon("trash").onClick(() => { this.plugin.data.stories.remove(story); this.selectedId = null; void this.plugin.commit(); })); menu.showAtMouseEvent(event); }
+  private async openLinkedNote(story: Story): Promise<void> {
+    const path = await this.plugin.openStoryNote(story);
+    if (story.notePath !== path) { story.notePath = path; await this.plugin.commit(); }
+  }
+  private storyMenu(event: MouseEvent, story: Story): void { event.preventDefault(); const menu = new Menu().setUseNativeMenu(false); menu.addItem(i => i.setTitle(t("编辑")).setIcon("pencil").onClick(() => new StoryEditorModal(this.plugin, story).open())); menu.addItem(i => i.setTitle(t("修改名称")).setIcon("pencil").onClick(() => this.beginRename("story", story.id))); menu.addItem(i => i.setTitle(t("打开关联笔记")).setIcon("file-text").onClick(() => void this.openLinkedNote(story))); menu.addSeparator(); menu.addItem(i => i.setTitle(t("删除")).setIcon("trash").onClick(() => { this.plugin.data.stories.remove(story); this.selectedId = null; void this.plugin.commit(); })); menu.showAtMouseEvent(event); }
   private activityMenu(event: MouseEvent, activity: Activity): void {
     event.preventDefault(); const menu = new Menu().setUseNativeMenu(false);
     menu.addItem(i => i.setTitle(taskT("活动详情")).setIcon("file-text").onClick(() => new ActivityEditorModal(this.plugin, activity).open()));
@@ -1318,18 +1325,16 @@ export default class StoryMapPlugin extends Plugin {
     const path = write ? await write(output) : await this.saveExport(this.data.title, "xmind", output);
     new Notice(t("已导出 XMind：{0}", path), 6000);
   }
-  async openStoryNote(story: Story): Promise<void> {
-    if (story.notePath && !(this.app.vault.getAbstractFileByPath(story.notePath) instanceof TFile)) {
-      new Notice(t("关联笔记不存在，请重新关联")); return;
-    }
-    const path = normalizePath(story.notePath || t("故事/{0}.md", story.title)); story.notePath = path;
+  /** Opens the story's note, creating it from the story when missing, and returns its path. Linking the path to the story is left to the caller. */
+  async openStoryNote(story: Story): Promise<string> {
+    const path = normalizePath(story.notePath || t("故事/{0}.md", story.title));
     let file = this.app.vault.getAbstractFileByPath(path);
     if (!(file instanceof TFile)) {
       const folder = path.split("/").slice(0, -1).join("/"); if (folder && !(await this.app.vault.adapter.exists(folder))) await this.app.vault.createFolder(folder);
       file = await this.app.vault.create(path, `---\nstatus: ${story.status}\npriority: ${story.priority}\nestimate: ${story.estimate}\ntags: [${story.tags.join(", ")}]\n---\n\n# ${story.title}\n\n${story.description}\n\n## ${t("验收标准")}\n\n- [ ] \n`);
-      await this.commit(false);
     }
     if (file instanceof TFile) await this.app.workspace.getLeaf("tab").openFile(file);
+    return path;
   }
 }
 

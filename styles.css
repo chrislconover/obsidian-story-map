@@ -138,6 +138,7 @@
 .story-map-note-selector { display:flex; gap:8px; flex-wrap:wrap; }
 .story-map-note-selector button { min-height:34px; }
 .story-map-note-selector button:first-child { flex:1 1 180px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:left; }
+.story-map-note-selector button.is-missing { color:var(--text-faint); text-decoration:line-through; }
 @media(max-width:480px) { .story-map-dialog-metadata { grid-template-columns:1fr; } .modal.story-map-story-side-modal,.modal.story-map-compact-modal { padding:18px; } }
 
 /* Scroll the form, keeping the heading and actions outside the scroll area. */
